@@ -41,8 +41,10 @@ var getMaxElement = function (arr) {
         arr[i] = maxElement;
       }
     }
+    return maxElement;
+  } else {
+    return null;
   }
-  return maxElement;
 };
 
 window.renderStatistics = function (ctx, names, times) {
