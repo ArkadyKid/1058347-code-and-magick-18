@@ -107,21 +107,21 @@ setupCloseElement.addEventListener('keydown', function (evt) {
 });
 
 wizardCoatElement.addEventListener('click', function () {
-  var coatColor = generateRandomCoat();
-  wizardCoatElement.style.fill = coatColors[coatColor];
-  inputCoatElement.value = coatColors[coatColor];
+  var coatColor = coatColors[generateRandomCoat()];
+  wizardCoatElement.style.fill = coatColor;
+  inputCoatElement.value = coatColor;
 });
 
 wizardEyeElement.addEventListener('click', function () {
-  var eyesColor = generateRandomEye();
-  wizardEyeElement.style.fill = eyesColors[eyesColor];
-  inputEyesElement.value = eyesColors[eyesColor];
+  var eyesColor = eyesColors[generateRandomEye()];
+  wizardEyeElement.style.fill = eyesColor;
+  inputEyesElement.value = eyesColor;
 });
 
 wizardFireballElement.addEventListener('click', function () {
-  var fireballColor = generateRandomFireball();
-  wizardFireballElement.style.backgroundColor = fireballs[fireballColor];
-  inputFireballElement.value = fireballs[fireballColor];
+  var fireballColor = fireballs[generateRandomFireball()];
+  wizardFireballElement.style.backgroundColor = fireballColor;
+  inputFireballElement.value = fireballColor;
 });
 
 setupUserNameElement.addEventListener('invalid', function () {
