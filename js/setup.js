@@ -1,16 +1,30 @@
 'use strict';
 
+var ESC_KEY_CODE = 27;
+var ENTER_KEY_CODE = 13;
 var ARRAY_LENGTH = 4;
 var userDialogElement = document.querySelector('.setup');
-var setupElement = userDialogElement.querySelector('.setup-similar');
 var similarListElement = userDialogElement.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 var fragment = document.createDocumentFragment();
-var namesArray = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-var surnamesArray = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионг', 'Ирвинг'];
-var coatColorArray = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
-var eyesColorArray = ['black', 'red', 'blue', 'yellow', 'green'];
-var wizardsArray = [];
+var setupOpenElement = document.querySelector('.setup-open');
+var setupBlockElement = document.querySelector('.setup');
+var setupCloseElement = setupBlockElement.querySelector('.setup-close');
+var setupOpenIconElement = setupOpenElement.querySelector('.setup-open-icon');
+var setupUserNameElement = document.querySelector('.setup-user-name');
+var setupPlayerElement = document.querySelector('.setup-player');
+var wizardCoatElement = setupPlayerElement.querySelector('.wizard-coat');
+var wizardEyeElement = setupPlayerElement.querySelector('.wizard-eyes');
+var wizardFireballElement = setupPlayerElement.querySelector('.setup-fireball');
+var inputCoatElement = setupPlayerElement.querySelector('input[name=coat-color]');
+var inputEyesElement = setupPlayerElement.querySelector('input[name=eyes-color]');
+var inputFireballElement = setupPlayerElement.querySelector('input[name=fireball-color]');
+var surnames = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионг', 'Ирвинг'];
+var eyesColors = ['black', 'red', 'blue', 'yellow', 'green'];
+var coatColors = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
+var fireballs = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
+var names = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
+var wizards = [];
 
 var generateRandomNumber = function (array) {
   return Math.floor(Math.random() * array.length);
@@ -18,14 +32,26 @@ var generateRandomNumber = function (array) {
 
 var generateWizards = function () {
   for (var i = 0; i < ARRAY_LENGTH; i++) {
-    wizardsArray[i] = {
-      name: namesArray[generateRandomNumber(namesArray)],
-      surname: surnamesArray[generateRandomNumber(surnamesArray)],
-      coatColor: coatColorArray[generateRandomNumber(coatColorArray)],
-      eyesColor: eyesColorArray[generateRandomNumber(eyesColorArray)],
+    wizards[i] = {
+      name: names[generateRandomNumber(names)],
+      surname: surnames[generateRandomNumber(surnames)],
+      coatColor: coatColors[generateRandomNumber(coatColors)],
+      eyesColor: eyesColors[generateRandomNumber(eyesColors)],
     };
   }
-  return wizardsArray;
+  return wizards;
+};
+
+var generateRandomCoat = function () {
+  return Math.floor(Math.random() * coatColors.length);
+};
+
+var generateRandomEye = function () {
+  return Math.floor(Math.random() * eyesColors.length);
+};
+
+var generateRandomFireball = function () {
+  return Math.floor(Math.random() * fireballs.length);
 };
 
 generateWizards();
@@ -38,10 +64,82 @@ var renderWizard = function (wizard) {
   return wizardElement;
 };
 
+var onPopupEscPress = function (evt) {
+  if (evt.keyCode === ESC_KEY_CODE && evt.target !== setupUserNameElement) {
+    closePopup();
+  }
+};
+
+var openPopup = function () {
+  setupBlockElement.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+};
+
+var closePopup = function () {
+  setupBlockElement.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
 for (var i = 0; i < ARRAY_LENGTH; i++) {
-  fragment.appendChild(renderWizard(wizardsArray[i]));
+  fragment.appendChild(renderWizard(wizards[i]));
 }
 
 similarListElement.appendChild(fragment);
-userDialogElement.classList.remove('hidden');
-setupElement.classList.remove('hidden');
+
+setupOpenElement.addEventListener('click', function () {
+  openPopup();
+});
+
+setupCloseElement.addEventListener('click', function () {
+  closePopup();
+});
+
+setupOpenIconElement.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEY_CODE) {
+    openPopup();
+  }
+});
+
+setupCloseElement.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEY_CODE) {
+    closePopup();
+  }
+});
+
+wizardCoatElement.addEventListener('click', function () {
+  var coatColor = generateRandomCoat();
+  wizardCoatElement.style.fill = coatColors[coatColor];
+  inputCoatElement.value = coatColors[coatColor];
+});
+
+wizardEyeElement.addEventListener('click', function () {
+  var eyesColor = generateRandomEye();
+  wizardEyeElement.style.fill = eyesColors[eyesColor];
+  inputEyesElement.value = eyesColors[eyesColor];
+});
+
+wizardFireballElement.addEventListener('click', function () {
+  var fireballColor = generateRandomFireball();
+  wizardFireballElement.style.backgroundColor = fireballs[fireballColor];
+  inputFireballElement.value = fireballs[fireballColor];
+});
+
+setupUserNameElement.addEventListener('invalid', function () {
+  if (setupUserNameElement.validity.tooShort) {
+    setupUserNameElement.setCustomValidity('Имя не должно быть короче 2ух символов');
+  } else if (setupUserNameElement.validity.tooLong) {
+    setupUserNameElement.setCustomValidity('Имя не должно быть длинее 25 символов');
+  } else if (setupUserNameElement.validity.valueMissing) {
+    setupUserNameElement.setCustomValidity('Обязательное поле!');
+  } else {
+    setupUserNameElement.setCustomValidity('');
+  }
+});
+
+setupUserNameElement.addEventListener('input', function (evt) {
+  var target = evt.target;
+  if (target.value.length < 2) {
+    target.setCustomValidity('Имя не должно быть короче 2ух символов');
+  }
+  target.setCustomValidity('');
+});
