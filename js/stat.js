@@ -42,9 +42,8 @@ var getMaxElement = function (arr) {
       }
     }
     return maxElement;
-  } else {
-    return null;
   }
+  return null;
 };
 
 window.renderStatistics = function (ctx, names, times) {
@@ -58,10 +57,9 @@ window.renderStatistics = function (ctx, names, times) {
     if (names[i] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
       ctx.fillRect(TEXT_X + (BAR_WIDTH + BAR_GAP) * i, CLOUD_HEIGHT - barHeight - FONT_GAP * 2, BAR_WIDTH, barHeight);
-    } else {
-      ctx.fillStyle = 'hsl(240, ' + Math.random() * 100 + '%' + ', 50%)';
-      ctx.fillRect(TEXT_X + (BAR_WIDTH + BAR_GAP) * i, CLOUD_HEIGHT - barHeight - FONT_GAP * 2, BAR_WIDTH, barHeight);
     }
+    ctx.fillStyle = 'hsl(240, ' + Math.random() * 100 + '%' + ', 50%)';
+    ctx.fillRect(TEXT_X + (BAR_WIDTH + BAR_GAP) * i, CLOUD_HEIGHT - barHeight - FONT_GAP * 2, BAR_WIDTH, barHeight);
     ctx.fillStyle = '#000000';
     ctx.fillText(names[i], TEXT_X + (BAR_WIDTH + BAR_GAP) * i, CLOUD_HEIGHT - FONT_GAP);
     ctx.fillText(Math.round(times[i]), TEXT_X + (BAR_WIDTH + BAR_GAP) * i, CLOUD_HEIGHT - barHeight - FONT_GAP * 3);
