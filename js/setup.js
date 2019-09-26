@@ -43,15 +43,15 @@ var generateWizards = function () {
 };
 
 var generateRandomCoat = function () {
-  return Math.round(Math.random() * coatColors.length);
+  return Math.floor(Math.random() * coatColors.length);
 };
 
 var generateRandomEye = function () {
-  return Math.round(Math.random() * eyesColors.length);
+  return Math.floor(Math.random() * eyesColors.length);
 };
 
 var generateRandomFireball = function () {
-  return Math.round(Math.random() * fireballs.length);
+  return Math.floor(Math.random() * fireballs.length);
 };
 
 generateWizards();
@@ -107,18 +107,21 @@ setupCloseElement.addEventListener('keydown', function (evt) {
 });
 
 wizardCoatElement.addEventListener('click', function () {
-  wizardCoatElement.style.fill = coatColors[generateRandomCoat()];
-  inputCoatElement.value = wizardCoatElement.style.fill;
+  var coatColor = generateRandomCoat();
+  wizardCoatElement.style.fill = coatColors[coatColor];
+  inputCoatElement.value = coatColors[coatColor];
 });
 
 wizardEyeElement.addEventListener('click', function () {
-  wizardEyeElement.style.fill = eyesColors[generateRandomEye()];
-  inputEyesElement.value = wizardEyeElement.style.fill;
+  var eyesColor = generateRandomEye();
+  wizardEyeElement.style.fill = eyesColors[eyesColor];
+  inputEyesElement.value = eyesColors[eyesColor];
 });
 
 wizardFireballElement.addEventListener('click', function () {
-  wizardFireballElement.style.backgroundColor = fireballs[generateRandomFireball()];
-  inputFireballElement.value = wizardFireballElement.style.backgroundColor;
+  var fireballColor = generateRandomFireball();
+  wizardFireballElement.style.backgroundColor = fireballs[fireballColor];
+  inputFireballElement.value = fireballs[fireballColor];
 });
 
 setupUserNameElement.addEventListener('invalid', function () {
