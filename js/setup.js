@@ -1,8 +1,5 @@
 'use strict';
 
-var ESC_KEY_CODE = 27;
-var ENTER_KEY_CODE = 13;
-var ARRAY_LENGTH = 4;
 var userDialogElement = document.querySelector('.setup');
 var similarListElement = userDialogElement.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
@@ -31,7 +28,7 @@ var generateRandomNumber = function (array) {
 };
 
 var generateWizards = function () {
-  for (var i = 0; i < ARRAY_LENGTH; i++) {
+  for (var i = 0; i < window.util.ARRAY_LENGTH; i++) {
     wizards[i] = {
       name: names[generateRandomNumber(names)],
       surname: surnames[generateRandomNumber(surnames)],
@@ -65,7 +62,7 @@ var renderWizard = function (wizard) {
 };
 
 var onPopupEscPress = function (evt) {
-  if (evt.keyCode === ESC_KEY_CODE && evt.target !== setupUserNameElement) {
+  if (evt.keyCode === window.util.ESC_KEY_CODE && evt.target !== setupUserNameElement) {
     closePopup();
   }
 };
@@ -80,7 +77,7 @@ var closePopup = function () {
   document.removeEventListener('keydown', onPopupEscPress);
 };
 
-for (var i = 0; i < ARRAY_LENGTH; i++) {
+for (var i = 0; i < window.util.ARRAY_LENGTH; i++) {
   fragment.appendChild(renderWizard(wizards[i]));
 }
 
@@ -95,13 +92,13 @@ setupCloseElement.addEventListener('click', function () {
 });
 
 setupOpenIconElement.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEY_CODE) {
+  if (evt.keyCode === window.util.ENTER_KEY_CODE) {
     openPopup();
   }
 });
 
 setupCloseElement.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEY_CODE) {
+  if (evt.keyCode === window.util.ENTER_KEY_CODE) {
     closePopup();
   }
 });
