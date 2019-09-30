@@ -1,8 +1,8 @@
 'use strict';
 
 (function () {
-  var userDialogElement = document.querySelector('.setup');
-  var similarListElement = userDialogElement.querySelector('.setup-similar-list');
+  var setupSimilarElement = window.setup.setupBlockElement.querySelector('.setup-similar');
+  var similarListElement = setupSimilarElement.querySelector('.setup-similar-list');
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
   var fragment = document.createDocumentFragment();
   var surnames = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионг', 'Ирвинг'];
@@ -40,4 +40,5 @@
   }
 
   similarListElement.appendChild(fragment);
+  setupSimilarElement.classList.remove('hidden');
 })();

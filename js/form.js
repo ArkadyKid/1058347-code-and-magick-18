@@ -17,16 +17,25 @@
     return Math.floor(Math.random() * array.length);
   };
 
-  var generateRandomCoat = function () {
-    generateColor(coatColors);
+  var generateColorCoat = function () {
+    return coatColors[generateColor(coatColors)];
   };
 
-  var generateRandomEye = function () {
-    generateColor(eyesColors);
+  var generateColorEye = function () {
+    return eyesColors[generateColor(eyesColors)];
   };
 
-  var generateRandomFireball = function () {
-    generateColor(fireballs);
+  var generateColorFireball = function () {
+    return fireballs[generateColor(fireballs)];
+  };
+
+  var setColorAndValue = function (element, color, input) {
+    if (element.tagName.toLowerCase() === 'div') {
+      element.style.backgroundColor = color;
+      input.value = color;
+    }
+    element.style.fill = color;
+    input.value = color;
   };
 
   window.form = {
@@ -56,20 +65,17 @@
   });
 
   wizardCoatElement.addEventListener('click', function () {
-    var coatColor = coatColors[generateRandomCoat()];
-    wizardCoatElement.style.fill = coatColor;
-    inputCoatElement.value = coatColor;
+    var coatColor = generateColorCoat();
+    setColorAndValue(wizardCoatElement, coatColor, inputCoatElement);
   });
 
   wizardEyeElement.addEventListener('click', function () {
-    var eyesColor = eyesColors[generateRandomEye()];
-    wizardEyeElement.style.fill = eyesColor;
-    inputEyesElement.value = eyesColor;
+    var eyesColor = generateColorEye();
+    setColorAndValue(wizardEyeElement, eyesColor, inputEyesElement);
   });
 
   wizardFireballElement.addEventListener('click', function () {
-    var fireballColor = fireballs[generateRandomFireball()];
-    wizardFireballElement.style.backgroundColor = fireballColor;
-    inputFireballElement.value = fireballColor;
+    var fireballColor = generateColorFireball();
+    setColorAndValue(wizardFireballElement, fireballColor, inputFireballElement);
   });
 })();
