@@ -14,7 +14,7 @@
   };
 
   var generateWizards = function () {
-    for (var i = 0; i < window.util.ARRAY_LENGTH; i++) {
+    for (var i = 0; i < window.util.WIZARD_COUNT; i++) {
       wizards[i] = {
         name: names[generateRandomNumber(names)],
         surname: surnames[generateRandomNumber(surnames)],
@@ -35,7 +35,7 @@
     return wizardElement;
   };
 
-  for (var i = 0; i < window.util.ARRAY_LENGTH; i++) {
+  for (var i = 0; i < window.util.WIZARD_COUNT; i++) {
     fragment.appendChild(renderWizard(wizards[i]));
   }
 
