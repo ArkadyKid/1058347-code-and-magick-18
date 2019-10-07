@@ -8,6 +8,10 @@
   var setupCloseElement = setupBlockElement.querySelector('.setup-close');
   var setupOpenIconElement = setupOpenElement.querySelector('.setup-open-icon');
 
+  window.setup = {
+    setupBlockElement: setupBlockElement
+  };
+
   var onPopupEscPress = function (evt) {
     if (evt.keyCode === window.util.ESC_KEY_CODE && evt.target !== window.setupUserNameElement) {
       closePopup();
