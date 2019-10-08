@@ -1,8 +1,9 @@
 'use strict';
 
 (function () {
-  var setupUserNameElement = document.querySelector('.setup-user-name');
-  var setupPlayerElement = document.querySelector('.setup-player');
+  var setupWizardFormElement = document.querySelector('.setup-wizard-form');
+  var setupUserNameElement = setupWizardFormElement.querySelector('.setup-user-name');
+  var setupPlayerElement = setupWizardFormElement.querySelector('.setup-player');
   var wizardCoatElement = setupPlayerElement.querySelector('.wizard-coat');
   var wizardEyeElement = setupPlayerElement.querySelector('.wizard-eyes');
   var wizardFireballElement = setupPlayerElement.querySelector('.setup-fireball');
@@ -12,6 +13,7 @@
   var eyesColors = ['black', 'red', 'blue', 'yellow', 'green'];
   var coatColors = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
   var fireballs = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
+  var setupBlockElement = window.setup.setupBlockElement;
 
   var generateColor = function (array) {
     return Math.floor(Math.random() * array.length);
@@ -77,5 +79,15 @@
   wizardFireballElement.addEventListener('click', function () {
     var fireballColor = generateColorFireball();
     setColorAndValue(wizardFireballElement, fireballColor, inputFireballElement);
+  });
+
+
+  var successHandler = function () {
+    setupBlockElement.classList.add('hidden');
+  };
+
+  setupWizardFormElement.addEventListener('submit', function (evt) {
+    window.backend.save(new FormData(setupWizardFormElement), successHandler, window.backend.errorHandler);
+    evt.preventDefault();
   });
 })();

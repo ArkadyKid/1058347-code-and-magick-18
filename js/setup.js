@@ -8,6 +8,10 @@
   var setupCloseElement = setupBlockElement.querySelector('.setup-close');
   var setupOpenIconElement = setupOpenElement.querySelector('.setup-open-icon');
 
+  window.setup = {
+    setupBlockElement: setupBlockElement
+  };
+
   var onPopupEscPress = function (evt) {
     if (evt.keyCode === window.util.ESC_KEY_CODE && evt.target !== window.setupUserNameElement) {
       closePopup();
@@ -51,7 +55,6 @@
         x: moveEvt.clientX,
         y: moveEvt.clientY
       };
-
       setupBlockElement.style.top = (setupBlockElement.offsetTop - shift.y) + 'px';
       setupBlockElement.style.left = (setupBlockElement.offsetLeft - shift.x) + 'px';
     };
@@ -74,7 +77,6 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
-
   setupOpenElement.addEventListener('click', function () {
     openPopup();
   });
