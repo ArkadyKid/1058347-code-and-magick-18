@@ -1,12 +1,24 @@
 'use strict';
 
 (function () {
-  var POST_URL = 'https://js.dump.academy/code-and-magick';
-  var GET_URL = 'https://js.dump.academy/code-and-magick/data';
+  var TIMEOUT = 10000;
+
+  var XHR_STATUS = {
+    SUCCESS_STATUS: 200,
+    INVALID_URL: 500
+  };
+
+  var URL = {
+    POST: 'https://js.dump.academy/code-and-magick',
+    GET: 'https://js.dump.academy/code-and-magick/data'
+  };
 
   var errorHandler = function (errorMessage) {
     var node = document.createElement('div');
-    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.zIndex = '100';
+    node.style.margin = 'o auto';
+    node.style.textAlign = 'center';
+    node.style.backgroundColor = 'red';
     node.style.position = 'absolute';
     node.style.left = '0';
     node.style.top = '0';
@@ -21,10 +33,10 @@
 
     var checkError = function () {
       switch (xhr.status) {
-        case 200:
+        case XHR_STATUS.SUCCESS_STATUS:
           onSuccess(xhr.response);
           break;
-        case 500:
+        case XHR_STATUS.INVALID_URL:
           onError('Введён неверный URL');
           break;
         default:
@@ -42,14 +54,14 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'ms');
     });
 
-    xhr.timeout = 10000;
+    xhr.timeout = TIMEOUT;
   };
 
   var save = function (data, onSuccess, onError) {
     var xhr = new XMLHttpRequest();
     setBehaviourResponse(xhr, onSuccess, onError);
     xhr.responseType = 'json';
-    xhr.open('POST', POST_URL);
+    xhr.open('POST', URL.POST);
     xhr.send(data);
   };
 
@@ -57,7 +69,7 @@
     var xhr = new XMLHttpRequest();
     setBehaviourResponse(xhr, onSuccess, onError);
     xhr.responseType = 'json';
-    xhr.open('GET', GET_URL);
+    xhr.open('GET', URL.GET);
     xhr.send();
   };
 

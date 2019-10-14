@@ -40,12 +40,6 @@
     input.value = color;
   };
 
-  window.form = {
-    setupUserNameElement: setupUserNameElement,
-    eyesColors: eyesColors,
-    coatColors: coatColors
-  };
-
   setupUserNameElement.addEventListener('invalid', function () {
     if (setupUserNameElement.validity.tooShort) {
       setupUserNameElement.setCustomValidity('Имя не должно быть короче 2ух символов');
@@ -81,7 +75,6 @@
     setColorAndValue(wizardFireballElement, fireballColor, inputFireballElement);
   });
 
-
   var successHandler = function () {
     setupBlockElement.classList.add('hidden');
   };
@@ -90,4 +83,10 @@
     window.backend.save(new FormData(setupWizardFormElement), successHandler, window.backend.errorHandler);
     evt.preventDefault();
   });
+
+  window.form = {
+    setupUserNameElement: setupUserNameElement,
+    eyesColors: eyesColors,
+    coatColors: coatColors
+  };
 })();

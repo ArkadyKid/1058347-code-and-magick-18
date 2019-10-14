@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var KEY_CODE = window.util.KEY_CODE;
 
   var setupOpenElement = document.querySelector('.setup-open');
   var setupBlockElement = document.querySelector('.setup');
@@ -8,12 +9,8 @@
   var setupCloseElement = setupBlockElement.querySelector('.setup-close');
   var setupOpenIconElement = setupOpenElement.querySelector('.setup-open-icon');
 
-  window.setup = {
-    setupBlockElement: setupBlockElement
-  };
-
   var onPopupEscPress = function (evt) {
-    if (evt.keyCode === window.util.ESC_KEY_CODE && evt.target !== window.setupUserNameElement) {
+    if (evt.keyCode === KEY_CODE.ESC && evt.target !== window.setupUserNameElement) {
       closePopup();
     }
   };
@@ -88,14 +85,18 @@
   });
 
   setupOpenIconElement.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === window.util.ENTER_KEY_CODE) {
+    if (evt.keyCode === KEY_CODE.ENTER) {
       openPopup();
     }
   });
 
   setupCloseElement.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === window.util.ENTER_KEY_CODE) {
+    if (evt.keyCode === KEY_CODE.ENTER) {
       closePopup();
     }
   });
+
+  window.setup = {
+    setupBlockElement: setupBlockElement
+  };
 })();
