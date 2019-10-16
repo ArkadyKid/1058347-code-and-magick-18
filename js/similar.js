@@ -1,9 +1,9 @@
 'use strict';
 
 (function () {
+  var wizards = [];
   var coatColor;
   var eyesColor;
-  var wizards = [];
 
   var getRank = function (wizard) {
     var rank = 0;
@@ -20,10 +20,10 @@
 
   var updateWizards = function () {
     window.render(wizards.slice().
-    sort(function (left, right) {
-      var rankDiff = getRank(right) - getRank(left);
+    sort(function (a, b) {
+      var rankDiff = getRank(b) - getRank(a);
       if (rankDiff === 0) {
-        rankDiff = wizards.indexOf(left) - wizards.indexOf(right);
+        rankDiff = wizards.indexOf(a) - wizards.indexOf(b);
       }
       return rankDiff;
     }));

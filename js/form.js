@@ -1,6 +1,13 @@
 'use strict';
 
 (function () {
+
+  var COLORS = {
+    EYES: ['black', 'red', 'blue', 'yellow', 'green'],
+    COAT: ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'],
+    FIREBALLS: ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848']
+  };
+
   var setupWizardFormElement = document.querySelector('.setup-wizard-form');
   var setupUserNameElement = setupWizardFormElement.querySelector('.setup-user-name');
   var setupPlayerElement = setupWizardFormElement.querySelector('.setup-player');
@@ -10,9 +17,6 @@
   var inputCoatElement = setupPlayerElement.querySelector('input[name=coat-color]');
   var inputEyesElement = setupPlayerElement.querySelector('input[name=eyes-color]');
   var inputFireballElement = setupPlayerElement.querySelector('input[name=fireball-color]');
-  var eyesColors = ['black', 'red', 'blue', 'yellow', 'green'];
-  var coatColors = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
-  var fireballs = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
   var setupBlockElement = window.setup.setupBlockElement;
 
   var generateColor = function (array) {
@@ -20,15 +24,15 @@
   };
 
   var generateColorCoat = function () {
-    return coatColors[generateColor(coatColors)];
+    return COLORS.COAT[generateColor(COLORS.COAT)];
   };
 
   var generateColorEye = function () {
-    return eyesColors[generateColor(eyesColors)];
+    return COLORS.EYES[generateColor(COLORS.EYES)];
   };
 
   var generateColorFireball = function () {
-    return fireballs[generateColor(fireballs)];
+    return COLORS.FIREBALLS[generateColor(COLORS.FIREBALLS)];
   };
 
   var setColorAndValue = function (element, color, input) {
@@ -86,7 +90,9 @@
 
   window.form = {
     setupUserNameElement: setupUserNameElement,
-    eyesColors: eyesColors,
-    coatColors: coatColors
+  };
+
+  window.form = {
+    COLORS: COLORS
   };
 })();
